@@ -1,3 +1,12 @@
+#这是一个获取澳大利亚官VET课程信息的一段代码。
+#主要是用selenium和pandas包实现，
+#使用了selenium的webdriver新建浏览器对象，
+#根据XPath、TAG_NAME、CLASS_NAME等特点定位元素，
+#使用expected_conditions等待元素渲染结束后再进行下一步操作，
+#使用selenium中的Selector实现对复选框的操作，
+#使用pandas.DataFrame()函数构建df对象，并使用df.to_excel()函数将数据存储到本地文件，
+#to_excel函数有两个参数，第一个是文件名，第二个是是否带序列号
+
 from typing import List
 
 from selenium import webdriver
@@ -8,7 +17,7 @@ import time
 import locale
 import pandas as pd
 from selenium.webdriver.support.ui import Select
-from openpyxl.workbook import Workbook
+from openpyxl.workbook import Workbook 
 
 locale.setlocale(locale.LC_ALL,'')
 # def append_course(courses:List[dict]):
