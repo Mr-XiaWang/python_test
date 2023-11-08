@@ -10,6 +10,8 @@
 #项目中的VET_course_info.xlsx中的C4表格是这段代码执行侯后的存储的数据，
 #另两个表是这段代码在复选框处选择另外条件存储的数据
 #occupation_list.xlsx是运行一段类似代码存储的数据
+#后续导入MySQL数据库可以进行多种条件的查询。
+
 
 from typing import List
 
