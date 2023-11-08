@@ -7,6 +7,10 @@
 #使用pandas.DataFrame()函数构建df对象，并使用df.to_excel()函数将数据存储到本地文件，
 #to_excel函数有两个参数，第一个是文件名，第二个是是否带序列号
 
+#项目中的VET_course_info.xlsx中的C4表格是这段代码执行侯后的存储的数据，
+#另两个表是这段代码在复选框处选择另外条件存储的数据
+#occupation_list.xlsx是运行一段类似代码存储的数据
+
 from typing import List
 
 from selenium import webdriver
