@@ -13,7 +13,7 @@ from openpyxl.workbook import Workbook
 locale.setlocale(locale.LC_ALL,'')
 # def append_course(courses:List[dict]):
 
-
+#   这是读取一页信息的函数，参数是一个浏览器驱动对象，返回值是一个字典组成的列表。       函数功能：点击这页中需要点击的每个链接然后在新页面读取信息
 def read_page(driver:webdriver):
     courses = []
     row_num= len(driver.find_element(By.XPATH,
@@ -27,7 +27,7 @@ def read_page(driver:webdriver):
         trs[i].click()
         WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="course"]/div/div[1]/div')))
         divs = driver.find_element(By.XPATH, '//*[@id="course"]/div/div[1]/div').find_elements(By.TAG_NAME, 'div')
-        # print(len(divs))#获取页面每项信息？？？？
+        
         course = {}
         for div in divs:
             if len(div.find_elements(By.TAG_NAME, 'div')) == 0:
@@ -51,16 +51,18 @@ def read_page(driver:webdriver):
 
 page=1
 
-# 模仿点击事件（选条件->点按钮），获取完整的HTML代码
+#  新建浏览器驱动对象
 driver = webdriver.Edge()
 
-driver.get('https://cricos.education.gov.au/Course/CourseSearch.aspx')
-driver.find_element(By.XPATH,'//*[@id="ctl00_cphDefaultPage_courseSearchCriteria_chkWorkComponent"]').click()
-Select(driver.find_element(By.XPATH,'//*[@id="ctl00_cphDefaultPage_courseSearchCriteria_ddlTypeOfCourse"]')).select_by_value('C4')
+driver.get('https://cricos.education.gov.au/Course/CourseSearch.aspx')  #控制浏览器访问该网页
+driver.find_element(By.XPATH,'//*[@id="ctl00_cphDefaultPage_courseSearchCriteria_chkWorkComponent"]').click()    #使用XPath寻址方式查找元素并模拟点击事件
+Select(driver.find_element(By.XPATH,'//*[@id="ctl00_cphDefaultPage_courseSearchCriteria_ddlTypeOfCourse"]')).select_by_value('C4')  #根据条件选择复选框
 
-driver.find_element(By.XPATH,'//*[@id="ctl00_cphDefaultPage_btnSearch"]').click()
+driver.find_element(By.XPATH,'//*[@id="ctl00_cphDefaultPage_btnSearch"]').click()  
+
+#   等待某元素渲染结束侯继续运行代码     
 WebDriverWait(driver,30).until(EC.presence_of_element_located((By.XPATH,'//*[@id="ctl00_cphDefaultPage_courseList_gridSearchResults"]/tbody')))
-courses=read_page(driver)
+courses=read_page(driver)       #  运行read_page()函数获取第一页的信息。
 # df = pd.DataFrame(courses)
 # df.to_excel('VET_courses_info.xlsx', index=False)
 page+=1
@@ -79,7 +81,7 @@ while page<=33:
             ells[0].click()
             WebDriverWait(driver, 30).until(EC.presence_of_element_located(
                 (By.XPATH, '//*[@id="ctl00_cphDefaultPage_courseList_gridSearchResults"]/tbody')))
-    courses.extend(read_page(driver))
+    courses.extend(read_page(driver))   #   使用extend函数将新读取的信息列表添加到原列表中
     print("读完第",page,'页')
     page+=1
     # if page%10==0:
@@ -95,8 +97,8 @@ while page<=33:
     #     page += 1
     #     WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="ctl00_cphDefaultPage_courseList_gridSearchResults"]/tbody')))
     # courses.extend(read_page(driver))
-df = pd.DataFrame(courses)
-df.to_excel('VET_courses_04_info.xlsx', index=False)
+df = pd.DataFrame(courses)   #   使用pandas.DataFrame组织数据
+df.to_excel('VET_courses_04_info.xlsx', index=False)      #将数据存储到本地的VET_courses_04_info.xlsx文件
 
 driver.quit()
 #'Advanced Diploma of Accounting', 'Course Sector': 'VET', 'CRICOS Course Code': '099029B', 'VET National Code': 'FNS60217', 'Dual Qualification': 'No',
