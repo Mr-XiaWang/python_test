@@ -1,5 +1,5 @@
-#这是一个获取澳大利亚官VET课程信息的一段代码。
-#主要是用selenium和pandas包实现，
+#这是一个获取澳大利亚官方VET课程信息的一段代码。
+#主要使用selenium和pandas包实现，
 #使用了selenium的webdriver新建浏览器对象，
 #根据XPath、TAG_NAME、CLASS_NAME等特点定位元素，
 #使用expected_conditions等待元素渲染结束后再进行下一步操作，
